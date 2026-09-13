@@ -58,6 +58,13 @@ a{color:inherit;text-decoration:none;}
   color:var(--canvas);
   font-size:19px;
   letter-spacing:.06em;
+  display:flex;
+  align-items:center;
+}
+.logo-img{
+  height:30px;
+  width:auto;
+  display:block;
 }
 .logo small{
   display:block;font-family:'Oswald',sans-serif;
