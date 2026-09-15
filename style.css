@@ -98,9 +98,9 @@ nav.gnav a.is-active::after{
 .hero{
   background:var(--ink);color:var(--canvas);
   position:relative;overflow:hidden;
-  min-height:640px;
-  height:82vh;
-  max-height:820px;
+  min-height:560px;
+  height:calc(100vh - 74px);
+  max-height:1080px;
 }
 .hero::before{
   content:"";position:absolute;inset:0;z-index:0;
