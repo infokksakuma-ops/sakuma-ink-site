@@ -97,7 +97,7 @@ nav.gnav a.is-active::after{
 /* ===== Hero (animated smoke background) ===== */
 .hero-scrub-wrap{
   position:relative;
-  height:calc((100vh - 74px) * 3);
+  height:calc((100vh - 74px) * 5);
 }
 .hero{
   background:var(--ink);color:var(--canvas);
