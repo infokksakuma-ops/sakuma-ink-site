@@ -1,4 +1,16 @@
+// Prevent iOS in-app browsers / bfcache from keeping a previous page's scroll position.
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+if (!location.hash) {
+  window.scrollTo(0, 0);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
+  if (!location.hash) {
+    window.scrollTo(0, 0);
+  }
+
   // ===== Scroll reveal (fade-up cards/sections) =====
   var revealTargets = document.querySelectorAll('.reveal, .reveal-stagger');
   if (!('IntersectionObserver' in window) || revealTargets.length === 0) {
@@ -19,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var STICKY_OFFSET = 74;
 
   // ===== Generic scroll-scrub group =====
-  // config: { wrap, sticky, primarySlides, syncedSlides(optional), dots, tabs(optional, matched by data-tab-for) }
+  // config: { wrap, sticky, primarySlides, syncedSlides(optional), dots, tabs(optional), steepness(optional), travel(optional) }
   function initScrub(config) {
     var wrap = document.querySelector(config.wrap);
     var sticky = document.querySelector(config.sticky);
@@ -31,11 +43,13 @@ document.addEventListener('DOMContentLoaded', function () {
     var tabs = config.tabs ? Array.prototype.slice.call(document.querySelectorAll(config.tabs)) : [];
     if (primary.length < 2) return;
 
+    // steepness > 1 shortens the overlap window between adjacent slides (less garbled crossfade)
+    var steepness = config.steepness || 1.7;
+    var travel = config.travel || 90; // px of translateY at offset = 1
+
     if (reduceMotion) {
-      // Static fallback: clear inline styles so CSS reduced-motion rules apply, dots switch instantly.
       primary.concat(synced).forEach(function (el) { el.style.opacity = ''; el.style.transform = ''; });
       function setActive(i) {
-        primary.forEach(function (el, j) { if (el.dataset.step == j) {} });
         [primary, synced].forEach(function (group) {
           group.forEach(function (el) {
             var step = Number(el.getAttribute('data-step'));
@@ -71,10 +85,10 @@ document.addEventListener('DOMContentLoaded', function () {
         group.forEach(function (el) {
           var i = Number(el.getAttribute('data-step'));
           var offset = vIndex - i;
-          var opacity = Math.max(0, 1 - Math.abs(offset));
+          var opacity = Math.max(0, 1 - Math.abs(offset) * steepness);
           el.style.opacity = String(opacity);
           if (group === primary) {
-            el.style.transform = 'translateY(' + (-offset * 36) + 'px)';
+            el.style.transform = 'translateY(' + (-offset * travel) + 'px)';
           }
         });
       });
@@ -92,6 +106,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
+    window.addEventListener('load', render);
     render();
 
     dots.forEach(function (dot, i) {
@@ -109,7 +124,9 @@ document.addEventListener('DOMContentLoaded', function () {
     wrap: '.hero-scrub-wrap',
     sticky: '.hero',
     primarySlides: '.hero-slide',
-    dots: '.hero .hero-dot'
+    dots: '.hero .hero-dot',
+    steepness: 1.8,
+    travel: 100
   });
 
   initScrub({
@@ -118,6 +135,8 @@ document.addEventListener('DOMContentLoaded', function () {
     primarySlides: '.line-step',
     syncedSlides: '.phone-slide',
     dots: '.line-dots .hero-dot',
-    tabs: '.p-tab'
+    tabs: '.p-tab',
+    steepness: 1.5,
+    travel: 60
   });
 });
