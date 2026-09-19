@@ -100,8 +100,33 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
 
+    function goToIndex(i, smooth) {
+      var stickyH = sticky.offsetHeight;
+      var scrollable = wrap.offsetHeight - stickyH;
+      var wrapTop = wrap.getBoundingClientRect().top + window.scrollY;
+      var targetY = wrapTop - STICKY_OFFSET + (i / (primary.length - 1)) * scrollable;
+      window.scrollTo({ top: targetY, behavior: smooth ? 'smooth' : 'auto' });
+    }
+
+    var snapTimer = null;
+    function scheduleSnap() {
+      clearTimeout(snapTimer);
+      snapTimer = setTimeout(function () {
+        var rect = wrap.getBoundingClientRect();
+        var stickyH = sticky.offsetHeight;
+        var scrollable = wrap.offsetHeight - stickyH;
+        if (scrollable <= 0) return;
+        var progress = (STICKY_OFFSET - rect.top) / scrollable;
+        // Only snap while genuinely inside the scrub zone (not just entering/leaving it).
+        if (progress <= 0.02 || progress >= 0.98) return;
+        var vIndex = progress * (primary.length - 1);
+        goToIndex(Math.round(vIndex), true);
+      }, 140);
+    }
+
     function onScroll() {
       if (!ticking) { ticking = true; requestAnimationFrame(render); }
+      scheduleSnap();
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -110,13 +135,7 @@ document.addEventListener('DOMContentLoaded', function () {
     render();
 
     dots.forEach(function (dot, i) {
-      dot.addEventListener('click', function () {
-        var stickyH = sticky.offsetHeight;
-        var scrollable = wrap.offsetHeight - stickyH;
-        var wrapTop = wrap.getBoundingClientRect().top + window.scrollY;
-        var targetY = wrapTop - STICKY_OFFSET + (i / (primary.length - 1)) * scrollable;
-        window.scrollTo({ top: targetY, behavior: 'smooth' });
-      });
+      dot.addEventListener('click', function () { goToIndex(i, true); });
     });
   }
 
@@ -125,8 +144,8 @@ document.addEventListener('DOMContentLoaded', function () {
     sticky: '.hero',
     primarySlides: '.hero-slide',
     dots: '.hero .hero-dot',
-    steepness: 1.8,
-    travel: 100
+    steepness: 1.4,
+    travel: 80
   });
 
   initScrub({
@@ -136,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function () {
     syncedSlides: '.phone-slide',
     dots: '.line-dots .hero-dot',
     tabs: '.p-tab',
-    steepness: 1.5,
-    travel: 60
+    steepness: 1.3,
+    travel: 55
   });
 });
