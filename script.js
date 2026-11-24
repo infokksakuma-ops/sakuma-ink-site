@@ -30,6 +30,51 @@ document.addEventListener('DOMContentLoaded', function () {
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var STICKY_OFFSET = 74;
 
+  // ===== Count-up (animate .count-up numbers when they enter the viewport) =====
+  var countTargets = document.querySelectorAll('.count-up');
+  if (countTargets.length > 0) {
+    var formatCount = function (el, value) {
+      var rounded = Math.round(value);
+      return el.getAttribute('data-format') === 'comma'
+        ? rounded.toLocaleString('ja-JP')
+        : String(rounded);
+    };
+    var runCountUp = function (el) {
+      var target = parseFloat(el.getAttribute('data-count'));
+      if (isNaN(target)) return;
+      if (reduceMotion || !('requestAnimationFrame' in window)) {
+        el.textContent = formatCount(el, target);
+        return;
+      }
+      var duration = 1500;
+      var startTime = null;
+      var step = function (now) {
+        if (startTime === null) startTime = now;
+        var progress = Math.min((now - startTime) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3); // easeOutCubic
+        el.textContent = formatCount(el, target * eased);
+        if (progress < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    if (!('IntersectionObserver' in window)) {
+      countTargets.forEach(runCountUp);
+    } else {
+      var countObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            runCountUp(entry.target);
+            countObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+      countTargets.forEach(function (el) {
+        if (!reduceMotion) el.textContent = formatCount(el, 0);
+        countObserver.observe(el);
+      });
+    }
+  }
+
   // ===== Generic scroll-scrub group =====
   // config: { wrap, sticky, primarySlides, syncedSlides(optional), dots, tabs(optional), steepness(optional), travel(optional) }
   function initScrub(config) {
