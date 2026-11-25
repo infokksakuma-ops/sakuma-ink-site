@@ -144,3 +144,31 @@ nav.gnav a:hover{color:var(--teal);}
 .reveal-stagger.is-visible>*:nth-child(2){transition-delay:.12s;}
 .reveal-stagger.is-visible>*:nth-child(3){transition-delay:.24s;}
 @media (prefers-reduced-motion:reduce){.reveal,.reveal-stagger>*{opacity:1;transform:none;transition:none;}}
+
+/* ===== PROBLEMS / SERVICE / REASONS (2026-11-25) ===== */
+.problems{padding:84px 0 8px;}
+.prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.prob-card{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:28px 24px;}
+.prob-card h3{font-size:17.5px;font-weight:900;margin:12px 0 10px;line-height:1.55;}
+.prob-card p{color:#AEB8C6;font-size:14px;}
+.pno{font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;color:#13E6D2;letter-spacing:.06em;}
+.services{padding:84px 0 8px;}
+.svc-list{display:flex;flex-direction:column;gap:12px;}
+.svc-row{display:flex;align-items:center;gap:22px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:24px 26px;transition:.25s;}
+.svc-row:hover{background:rgba(255,255,255,.08);transform:translateY(-2px);}
+.sno{font-family:'Oswald',sans-serif;font-size:30px;font-weight:700;background:linear-gradient(120deg,#13E6D2,#198CF2);-webkit-background-clip:text;background-clip:text;color:transparent;min-width:52px;}
+.svc-body{flex:1;}
+.svc-body h3{font-size:18px;font-weight:900;margin-bottom:6px;}
+.svc-body p{color:#AEB8C6;font-size:14px;}
+.svc-arrow{font-size:20px;color:#13E6D2;}
+.reasons{padding:84px 0 84px;}
+.reason-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.reason-card{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:28px 24px;}
+.reason-card h3{font-size:17.5px;font-weight:900;margin:12px 0 10px;}
+.reason-card p{color:#AEB8C6;font-size:14px;}
+@media (max-width:1020px){
+  .prob-grid{grid-template-columns:1fr;}
+  .reason-grid{grid-template-columns:1fr;}
+  .svc-row{gap:14px;padding:20px;}
+  .sno{font-size:24px;min-width:42px;}
+}
