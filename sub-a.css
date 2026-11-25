@@ -31,7 +31,7 @@ nav.gnav .drop a{color:#C9D4E4;}
 .drop{background:#060B16;border:1px solid var(--line);border-top:none;box-shadow:0 18px 40px rgba(0,0,0,.5);}
 .drop a{color:#C9D4E4;}
 .drop a:hover{background:rgba(255,255,255,.05);color:#13E6D2;}
-.btn-nav{background:linear-gradient(100deg,#08BCC7,#198CF2);color:#fff;border-radius:999px;padding:11px 22px;box-shadow:0 8px 24px rgba(25,140,242,.35);}
+.btn-nav{background:linear-gradient(100deg,#08BCC7,#198CF2);color:#fff;border-radius:999px;padding:11px 26px;box-shadow:0 8px 24px rgba(25,140,242,.35);white-space:nowrap;flex-shrink:0;}
 
 /* headings / text */
 .display{font-family:'Zen Kaku Gothic New','Hiragino Kaku Gothic ProN',sans-serif;font-weight:900;letter-spacing:.01em;}
