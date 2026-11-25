@@ -108,3 +108,9 @@ th{color:#9AA3B2;}
   nav.gnav .drop{display:none;}
   .site-header .btn-nav{display:none;}
 }
+
+/* results: case cards + footer SNS */
+.case-result{font-size:20px;font-weight:900;color:#fff;line-height:1.5;margin:12px 0 10px;}
+.foot-sns{display:flex;gap:10px;flex-wrap:wrap;width:100%;margin-top:26px;}
+.foot-sns a{border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:8px 16px;font-size:12.5px;color:#C9D4E4;}
+.foot-sns a:hover{border-color:#13E6D2;color:#13E6D2;}
