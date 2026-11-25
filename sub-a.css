@@ -170,3 +170,15 @@ th{color:#9AA3B2;}
 /* ==== Results v7: jump buttons ==== */
 .jump-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 22px; }
 .jump-btns .btn { padding: 16px 34px; font-size: 17px; }
+
+/* ==== Header unified with top page (v8) ==== */
+.header-in { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+nav.gnav a { white-space: nowrap; }
+.mnav { display: none; }
+@media (max-width: 860px) {
+  .site-header .wrap.header-in { height: 64px; min-height: 64px; flex-wrap: nowrap; padding-top: 0; padding-bottom: 0; }
+  header nav.gnav { display: none; }
+  .mnav { display: flex; overflow-x: auto; padding: 2px 16px 12px; gap: 8px; scrollbar-width: none; }
+  .mnav::-webkit-scrollbar { display: none; }
+  .mnav a { flex: 0 0 auto; font-size: 13px; font-weight: 700; color: #fff; border: 1px solid rgba(255,255,255,.16); border-radius: 999px; padding: 6px 13px; background: rgba(255,255,255,.04); white-space: nowrap; }
+}
