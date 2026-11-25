@@ -146,3 +146,23 @@ th{color:#9AA3B2;}
   .acct-grid{grid-template-columns:1fr;}
   .bs-num{font-size:52px;}
 }
+
+/* ==== Results v6: avatars, founder band, case slides ==== */
+.acct-top { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+.acct-avatar { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(8,188,199,.55); flex: none; background: #101623; }
+.acct-top h3 { margin: 0; }
+.acct-top .acct-handle { margin: 0; }
+.founder-band { padding: 64px 0 8px; }
+.founder-in { display: flex; gap: 34px; align-items: center; background: rgba(255,255,255,.045); border: 1px solid rgba(255,255,255,.1); border-radius: 22px; padding: 30px; }
+.founder-img { width: 190px; height: 190px; object-fit: cover; border-radius: 18px; flex: none; }
+.founder-txt p { color: #c6ccd8; margin-top: 12px; max-width: 560px; }
+.case-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+.case-card { padding: 0; overflow: hidden; }
+.case-img { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; background: #fff; }
+.case-body { padding: 20px 22px 22px; }
+.case-date { margin-top: 10px; font-size: 12px; color: #8f97a6; letter-spacing: .08em; }
+@media (max-width: 760px) {
+  .case-grid { grid-template-columns: 1fr; }
+  .founder-in { flex-direction: column; align-items: flex-start; }
+  .founder-img { width: 150px; height: 150px; }
+}
