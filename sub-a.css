@@ -166,3 +166,7 @@ th{color:#9AA3B2;}
   .founder-in { flex-direction: column; align-items: flex-start; }
   .founder-img { width: 150px; height: 150px; }
 }
+
+/* ==== Results v7: jump buttons ==== */
+.jump-btns { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 22px; }
+.jump-btns .btn { padding: 16px 34px; font-size: 17px; }
